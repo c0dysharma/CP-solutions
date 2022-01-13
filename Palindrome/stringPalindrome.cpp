@@ -8,7 +8,7 @@ Not Palindrome
 */
 
 /*
-Algo: Reverse the string and check if its same as original
+Algo: Reverse the string and check if its same as original 
 */
 #include <algorithm>
 #include <iostream>
