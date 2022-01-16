@@ -6,8 +6,7 @@ using namespace std;
 
 // Creating global array of max size to get 0 initilazed
 #define maxSize 1001
-long arr[maxSize][maxSize];
-long diff[maxSize][maxSize];
+int arr[maxSize][maxSize];
 
 int main(void) {
   int n, m, u, q;
@@ -16,14 +15,6 @@ int main(void) {
   for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= m; j++) {
       cin >> arr[i][j];
-    }
-  }
-  // create difference array
-  for (int i = 1; i <= n; i++) {
-    for (int j = 1; j <= m; j++) {
-      if (i == 1)
-        diff[i][j] = arr[i][j];
-      diff[i][j] = arr[i][j] - arr[i][j - 1];
     }
   }
 
@@ -38,28 +29,37 @@ int main(void) {
     c2++;
 
     for (int i = r1; i <= r2; i++) {
-      diff[i][c1] += k;
-      if (c2 + 1 <= m) {
-        diff[i][c2 + 1] -= k;
+      for (int j = c1; j <= c2; j++) {
+        arr[i][j] += k;
       }
     }
   }
-
-  // difference sum for operations
+  cout << "==========================" << endl;
+  // print diff
   for (int i = 1; i <= n; i++) {
-    for (int j = 2; j <= m; j++) {
-      // if(j!=1)
-      diff[i][j] += diff[i][j - 1];
+    for (int j = 1; j <= m; j++) {
+      cout << arr[i][j] << ' ';
     }
+    cout << endl;
   }
+  cout << "==========================" << endl;
 
   // doing prefix sum
   for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= m; j++) {
-      diff[i][j] += diff[i - 1][j] + diff[i][j - 1];
-      diff[i][j] -= diff[i - 1][j - 1];
+      arr[i][j] += arr[i - 1][j] + arr[i][j - 1];
+      arr[i][j] -= arr[i - 1][j - 1];
     }
   }
+  cout << "==========================" << endl;
+  // print diff
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      cout << arr[i][j] << ' ';
+    }
+    cout << endl;
+  }
+  cout << "==========================" << endl;
 
   // printing query
   while (q--) {
@@ -72,8 +72,8 @@ int main(void) {
     c2++;
 
     // calculating answer
-    long long ans = diff[r2][c2] - diff[r1 - 1][c2] - diff[r2][c1 - 1] +
-                    diff[r1 - 1][c1 - 1];
+    int ans =
+        arr[r2][c2] - arr[r1 - 1][c2] - arr[r2][c1 - 1] + arr[r1 - 1][c1 - 1];
     cout << ans << endl;
   }
   return 0;
