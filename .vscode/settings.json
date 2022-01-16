@@ -9,5 +9,6 @@
         "string_view": "cpp",
         "system_error": "cpp",
         "variant": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
